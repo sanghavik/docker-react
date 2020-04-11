@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  #React app container running on exposed port 4001, with volumes added to have refernce to the code
+  react-app:
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4001:3000"
+    volumes:
+      - /usr/app/node_modules
+      - .:/usr/app
+
+  #Test container to live run the tests for the react app by overriding the startup cmd (optional approach)
+  test:
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /usr/app/node_modules
+      - .:/usr/app
+    command: ["npm", "run", "test"]
