@@ -1,3 +1,4 @@
+language: generic
 sudo: required
 
 services:
@@ -7,4 +8,4 @@ before_install:
   - docker build -t sanghavik/docker-react -f Dockerfile.dev .
 
 script:
-  - docker run sanghavik/docker-react npm run test -- --coverage
+  - docker run -e CI=true sanghavik/docker-react npm run test
